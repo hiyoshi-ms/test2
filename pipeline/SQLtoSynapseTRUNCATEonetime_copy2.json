@@ -1,9 +1,9 @@
 {
-	"name": "SQLtoSynapseTRUNCATEeachTime",
+	"name": "SQLtoSynapseTRUNCATEonetime_copy2",
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach_4hz",
+				"name": "ForEach_bcx",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -14,7 +14,7 @@
 					},
 					"activities": [
 						{
-							"name": "Copy_4hz",
+							"name": "Copy_bcx",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -47,6 +47,19 @@
 									}
 								},
 								"enableStaging": false,
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "AzureDataLakeStorage1",
+											"type": "LinkedServiceReference"
+										}
+									}
+								},
 								"translator": {
 									"type": "TabularTranslator",
 									"mappings": [
@@ -108,7 +121,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SourceDataset_4hz",
+									"referenceName": "SourceDataset_bcx",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_table": "@item().source.table"
@@ -117,7 +130,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DestinationDataset_4hz",
+									"referenceName": "DestinationDataset_bcx",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_table": "@item().destination.table"
@@ -181,7 +194,7 @@
 			}
 		},
 		"annotations": [],
-		"lastPublishTime": "2021-07-29T11:25:41Z"
+		"lastPublishTime": "2021-07-29T11:30:57Z"
 	},
 	"type": "Microsoft.Synapse/workspaces/pipelines"
 }

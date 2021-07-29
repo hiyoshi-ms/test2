@@ -43,7 +43,8 @@
 				"sparkVersion": "2.4",
 				"nodeCount": 3,
 				"cores": 4,
-				"memory": 28
+				"memory": 28,
+				"extraHeader": null
 			}
 		},
 		"cells": [
