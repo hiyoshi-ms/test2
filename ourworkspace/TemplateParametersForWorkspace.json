@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "ourworkspace"
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"linkedService1_connectionString": {
+			"value": ""
+		},
+		"ourworkspace-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"testpool_connectionString": {
+			"value": ""
+		},
+		"ADLS2_properties_typeProperties_url": {
+			"value": "https://adlsgen2hys.dfs.core.windows.net"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://adlsgen2hys.dfs.core.windows.net"
+		},
+		"ourworkspace-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://hikarilake.dfs.core.windows.net"
+		}
+	}
+}
