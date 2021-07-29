@@ -1,0 +1,148 @@
+{
+	"name": "TL_test",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "hysspark",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/36a8f872-9394-412c-a500-cec0f6f58757/resourceGroups/synapsews/providers/Microsoft.Synapse/workspaces/ourworkspace/bigDataPools/hysspark",
+				"name": "hysspark",
+				"type": "Spark",
+				"endpoint": "https://ourworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/hysspark",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Synapse 共同作成者ロールのユーザがToken 設定前に実行"
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"diagram": {
+						"activateDiagramType": 1,
+						"chartConfig": {
+							"category": "bar",
+							"keys": [
+								"_c0"
+							],
+							"values": [
+								"_c0"
+							],
+							"yLabel": "_c0",
+							"xLabel": "_c0",
+							"aggregation": "COUNT",
+							"aggByBackend": false
+						},
+						"aggData": "{\"_c0\":{\"aa\":1,\"bb\":1,\"cc\":1,\"ss\":1}}",
+						"isSummary": false,
+						"previewData": {
+							"filter": null
+						},
+						"isSql": false
+					}
+				},
+				"source": [
+					"%%pyspark\n",
+					"df = spark.read.load('abfss://test@adlsgen2hys.dfs.core.windows.net/mytest1.csv', format='csv')\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": null
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Tokenを設定して実行"
+				],
+				"attachments": null
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"jupyter": {
+						"outputs_hidden": true
+					},
+					"diagram": {
+						"activateDiagramType": 1,
+						"chartConfig": {
+							"category": "bar",
+							"keys": [
+								"_c0"
+							],
+							"values": [
+								"_c0"
+							],
+							"yLabel": "_c0",
+							"xLabel": "_c0",
+							"aggregation": "COUNT",
+							"aggByBackend": false
+						},
+						"aggData": "{\"_c0\":{\"aa\":1,\"bb\":1,\"cc\":1,\"ss\":1}}",
+						"isSummary": false,
+						"previewData": {
+							"filter": null
+						},
+						"isSql": false
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\n",
+					"# Python code\n",
+					"spark.conf.set(\"spark.storage.synapse.linkedServiceName\", \"ADLS2\")\n",
+					"spark.conf.set(\"fs.azure.account.oauth.provider.type\", \"com.microsoft.azure.synapse.tokenlibrary.LinkedServiceBasedTokenProvider\")\n",
+					"df = spark.read.load('abfss://test@adlsgen2hys.dfs.core.windows.net/mytest1.csv', format='csv')\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": null
+			}
+		]
+	}
+}

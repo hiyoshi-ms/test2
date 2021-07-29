@@ -1,0 +1,200 @@
+{
+	"name": "SQLtoSynapseTRUNCATEonetime_copy1",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_bcx",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_bcx",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().destination.table}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "SqlPoolSink",
+									"preCopyScript": {
+										"value": "@item().copySink.preCopyScript",
+										"type": "Expression"
+									}
+								},
+								"enableStaging": false,
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "AzureDataLakeStorage1",
+											"type": "LinkedServiceReference"
+										}
+									}
+								},
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "AccountKey",
+												"type": "Int32",
+												"physicalType": "int"
+											},
+											"sink": {
+												"name": "AccountKey",
+												"type": "Int32",
+												"physicalType": "int"
+											}
+										},
+										{
+											"source": {
+												"name": "AccountDescription",
+												"type": "String",
+												"physicalType": "nvarchar"
+											},
+											"sink": {
+												"name": "AccountDescription",
+												"type": "String",
+												"physicalType": "nvarchar"
+											}
+										},
+										{
+											"source": {
+												"name": "AccountType",
+												"type": "String",
+												"physicalType": "nvarchar"
+											},
+											"sink": {
+												"name": "AccountType",
+												"type": "String",
+												"physicalType": "nvarchar"
+											}
+										},
+										{
+											"source": {
+												"name": "AccountCodeAlternateKey",
+												"type": "Int32",
+												"physicalType": "int"
+											},
+											"sink": {
+												"name": "AccountCodeAlternateKey",
+												"type": "Int32",
+												"physicalType": "int"
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_bcx",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_bcx",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().destination.table"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "staging"
+						},
+						"destination": {
+							"table": "staging"
+						},
+						"copySink": {
+							"preCopyScript": "TRUNCATE TABLE staging"
+						}
+					},
+					{
+						"source": {
+							"table": "staging1"
+						},
+						"destination": {
+							"table": "staging1"
+						},
+						"copySink": {
+							"preCopyScript": "TRUNCATE TABLE staging1"
+						}
+					},
+					{
+						"source": {
+							"table": "staging2"
+						},
+						"destination": {
+							"table": "staging2"
+						},
+						"copySink": {
+							"preCopyScript": "TRUNCATE TABLE staging2"
+						}
+					},
+					{
+						"source": {
+							"table": "staging3"
+						},
+						"destination": {
+							"table": "staging3"
+						},
+						"copySink": {
+							"preCopyScript": "TRUNCATE TABLE staging3"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-29T10:56:13Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

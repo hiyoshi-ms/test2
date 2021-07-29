@@ -1,0 +1,45 @@
+{
+	"name": "Sourcejson",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "movefile.json",
+				"fileSystem": "source"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"date_rep": {
+					"type": "string"
+				},
+				"day": {
+					"type": "integer"
+				},
+				"month": {
+					"type": "integer"
+				},
+				"year": {
+					"type": "integer"
+				},
+				"cases": {
+					"type": "integer"
+				},
+				"deaths": {
+					"type": "integer"
+				},
+				"geo_id": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

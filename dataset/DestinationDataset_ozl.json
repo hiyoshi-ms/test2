@@ -1,0 +1,17 @@
+{
+	"name": "DestinationDataset_ozl",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp"
+		},
+		"sqlPool": {
+			"referenceName": "testpool",
+			"type": "SqlPoolReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

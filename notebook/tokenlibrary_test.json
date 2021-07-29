@@ -1,0 +1,196 @@
+{
+	"name": "tokenlibrary_test",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "hysspark",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"f62554fa-904e-4a12-ba04-d2e337e3ded7": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"_c0": "aa",
+										"_c1": "5",
+										"_c2": "3"
+									},
+									{
+										"_c0": "bb",
+										"_c1": "6",
+										"_c2": "6"
+									},
+									{
+										"_c0": "cc",
+										"_c1": "2",
+										"_c2": "4"
+									},
+									{
+										"_c0": "ss",
+										"_c1": "8",
+										"_c2": "3"
+									}
+								],
+								"schema": {
+									"_c0": "string",
+									"_c1": "string",
+									"_c2": "string"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "count",
+									"categoryFieldKeys": [
+										"_c0"
+									],
+									"seriesFieldKeys": [
+										"_c0"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					},
+					"974523aa-612c-4e76-9868-1f8639794600": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"_c0": "aa",
+										"_c1": "5",
+										"_c2": "3"
+									},
+									{
+										"_c0": "bb",
+										"_c1": "6",
+										"_c2": "6"
+									},
+									{
+										"_c0": "cc",
+										"_c1": "2",
+										"_c2": "4"
+									},
+									{
+										"_c0": "ss",
+										"_c1": "8",
+										"_c2": "3"
+									}
+								],
+								"schema": {
+									"_c0": "string",
+									"_c1": "string",
+									"_c2": "string"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "count",
+									"categoryFieldKeys": [
+										"_c0"
+									],
+									"seriesFieldKeys": [
+										"_c0"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"kernelspec": {
+				"name": "synapse_spark",
+				"display_name": "Synapse Spark"
+			},
+			"language_info": {
+				"name": "scala"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/36a8f872-9394-412c-a500-cec0f6f58757/resourceGroups/synapsews/providers/Microsoft.Synapse/workspaces/ourworkspace/bigDataPools/hysspark",
+				"name": "hysspark",
+				"type": "Spark",
+				"endpoint": "https://ourworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/hysspark",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"val df = spark.read.csv(\"abfss://test@adlsgen2hys.dfs.core.windows.net/mytest1.csv\")\r\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": false
+				},
+				"source": [
+					"val sc = spark.sparkContext\r\n",
+					"spark.conf.set(\"spark.storage.synapse.linkedServiceName\", \"adlsgen2hys\")\r\n",
+					"spark.conf.set(\"fs.azure.account.oauth.provider.type\", \"com.microsoft.azure.synapse.tokenlibrary.LinkedServiceBasedTokenProvider\") \r\n",
+					"val df = spark.read.csv(\"abfss://test@adlsgen2hys.dfs.core.windows.net/mytest1.csv\")\r\n",
+					"\r\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 3
+			}
+		]
+	}
+}

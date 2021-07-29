@@ -1,0 +1,28 @@
+{
+	"name": "SourceDataset_ozl",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ord_no",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "empno",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "emp"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
